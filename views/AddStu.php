@@ -1,6 +1,9 @@
+<?php
+    session_start();
+    $BASE_URL="http://127.0.0.1:8000/elective/"
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -12,22 +15,23 @@
     <title>学生选课系统-管理员</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="css/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/metisMenu.min.css'; ?>" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="css/timeline.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/timeline.css';?>" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/sb-admin-2.css';?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="css/morris.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/morris.css';?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $BASE_URL.'views/css/font-awesome.min.css';?>" rel="stylesheet" type="text/css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,9 +92,6 @@
                                 <li>
                                     <a href="MaintainStu.php">学生维护</a>
                                 </li>
-                                <li>
-                                    <a href="Score.php">成绩管理</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -140,52 +141,53 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <td>学号</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生学号">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>姓名</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生姓名">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>学生系院号</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生系院号">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>学生年级</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生年级">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>学生班级</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生班级">
-                                                </div>
-                                            </td>
-                                        </tr>
+                                <form role="form" action="../controllers/studentadd.php" method="post">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td>学号</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="学生学号" name="stuid">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>姓名</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="学生姓名" name="stuname">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>学生系院号</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="学生系院号" name="departid">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>学生年级</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="学生年级" name="stugrade">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>学生班级</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="学生班级" name="stuclass">
+                                                    </div>
+                                                </td>
+                                            </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-primary">提交</button>
-                                <button type="button" class="btn btn-primary">重置</button>
+                                <input type="submit" class="btn btn-primary"></input>
+                            </form>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
@@ -201,19 +203,19 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/jquery.min.js';?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/bootstrap.min.js';?>"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/metisMenu.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/metisMenu.min.js';?>"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="js/raphael-min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/raphael-min.js';?>"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="js/sb-admin-2.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/sb-admin-2.js';?>"></script>
 
 </body>
 

@@ -1,4 +1,6 @@
 <?php
+	$BASE_URL="http://127.0.0.1:8000/elective/"
+
 	$USER	= $_POST["username"];
 	$PWD	= $_POST["password"];
 	$ROL	= $_POST["role"];
@@ -12,19 +14,22 @@
 		switch($ROL)
 		{
 			case "admin":
-				require_once("../views/admin.php");
+				$URL	= $BASE_URL.'/views/admin.php';
 				break;
 			case "student":
-				require_once("../views/stu.php");
+				$URL	= $BASE_URL.'/views/stu.php';
 				break;
 			case "teacher":
-				require_once("../views/tea.php");
+				$URL	= $BASE_URL.'/views/tea.php';
 				break;
 			default:
-				require_once("../views/error.php");
+				$URL	= $BASE_URL.'/views/error.php';
 		}
+
+		header("Location:$URL");
+		exit;
     }else{
-        require_once("../views/error.php");
+        require_once($BASE_URL.'/views/error.php');
     }
 
 

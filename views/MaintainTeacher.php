@@ -1,6 +1,8 @@
+<?php
+    $BASE_URL="http://127.0.0.1:8000/elective/"
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -12,22 +14,23 @@
     <title>学生选课系统-管理员</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="css/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/metisMenu.min.css'; ?>" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="css/timeline.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/timeline.css';?>" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/sb-admin-2.css';?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="css/morris.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/morris.css';?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $BASE_URL.'views/css/font-awesome.min.css';?>" rel="stylesheet" type="text/css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,9 +91,6 @@
                                 <li>
                                     <a href="MaintainStu.php">学生维护</a>
                                 </li>
-                                <li>
-                                    <a href="Score.php">成绩管理</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -127,30 +127,80 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header">欢迎登陆学生选课系统,$USER</h2>
+                    <h2 class="page-header"></h2>
                 </div>
                 <!-- /.col-lg-12 -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        教师ID
+                                    </th>
+                                    <th>
+                                        院系
+                                    </th>
+                                    <th>
+                                        姓名
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    require_once('../models/mysql.php');
+                                    $TEA        =   new MySQL(1);
+                                    $teachers   =   $TEA->GetAllTeacher();
+                                    foreach($teachers as $teaid=>$info)
+                                    {
+                                        $teadepart      =   $info['teadepart'];
+                                        $teadepartname  =   $TEA->GetDepartName($teadepart);
+                                        $teaname        =   $info['name'];
+                                        echo "<tr><td class='edit' id=$teaid#teaid>$teaid</td>";
+                                        echo "<td>$teadepartname</td>";
+                                        echo "<td class='edit' id=$teaid#teaname>$teaname</td></tr>";
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
-
+        </div>
+        <div class="col-lg-12">
+            <h5 class="page-header" align="right">将教师ID置为空可删除该教师，其他方式修改教师ID均为无效操作</h5>
         </div>
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/jquery.min.js';?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/bootstrap.min.js';?>"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/metisMenu.min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/metisMenu.min.js';?>"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="js/raphael-min.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/raphael-min.js';?>"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="js/sb-admin-2.js"></script>
+    <script src="<?php echo $BASE_URL.'views/js/sb-admin-2.js';?>"></script>
+    <!-- jquery.jeditable-->
+    <script src="<?php echo $BASE_URL.'views/js/jquery.jeditable.js';?>"></script>
+    <script>
+        $(function(){
+            var url =  '../controllers/updateteacher.php';
+            $('.edit').editable(url, {
+                width     :80,
+                height    :25,
+                cancel    : '取消',
+                submit    : '确定',
+                tooltip   : '单击可以编辑...'
+            });
+        });
+    </script>
 
 </body>
 

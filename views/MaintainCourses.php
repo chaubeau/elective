@@ -88,9 +88,6 @@
                                 <li>
                                     <a href="MaintainStu.php">学生维护</a>
                                 </li>
-                                <li>
-                                    <a href="Score.php">成绩管理</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -1,3 +1,7 @@
+<?php
+    define('__ROOT__', dirname(dirname(__FILE__)));
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +42,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">学生选课系统</h3>
+                        <h3 class="panel-title" align="center">学生选课系统</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="controllers/login.php" method="post">

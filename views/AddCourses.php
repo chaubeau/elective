@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    $BASE_URL="http://127.0.0.1:8000/elective/";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,22 +16,22 @@
     <title>学生选课系统-管理员</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="css/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/metisMenu.min.css'; ?>" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="css/timeline.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/timeline.css';?>" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/sb-admin-2.css';?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="css/morris.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL.'views/css/morris.css';?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $BASE_URL.'views/css/font-awesome.min.css';?>" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,9 +92,6 @@
                                 <li>
                                     <a href="MaintainStu.php">学生维护</a>
                                 </li>
-                                <li>
-                                    <a href="Score.php">成绩管理</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -140,76 +141,74 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <td>课程编号</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生学号">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                授课教师
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>课程名称</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="课程名称">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>学生系院号</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="学生系院号">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>上课时间</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="上课时间">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>上课地点</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="上课地点">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>课程简介</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" placeholder="课程简介">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary">提交</button>
-                                <button type="button" class="btn btn-primary">重置</button>
+                                <form role="form" action="../controllers/courseadd.php" method="post">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td>课程编号</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="课程编号" name="courseid">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    授课教师
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="courseteacher">
+                                                            <?php
+                                                                require_once('../models/mysql.php');
+                                                                $TEA        =   new MySQL(1);
+                                                                $teachers   =   $TEA->GetAllTeacher();
+                                                                foreach($teachers as $teaid=>$info)
+                                                                {
+                                                                    $teaname    =   $info['name'];
+                                                                    echo "<option>${teaname}($teaid)</option>";
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>课程名称</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="课程名称" name="coursename">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>上课时间</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="上课时间" name="coursetime">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>上课地点</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="上课地点" name="courseaddress">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>课程简介</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="课程简介" name="coursesumma">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="submit" class="btn btn-primary"></input>
+                                </form>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
