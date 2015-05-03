@@ -1,4 +1,7 @@
 <?php
+/*
+*管理员修改教师相关
+*/
     require_once('../models/mysql.php');
     $TEA	= new MySQL(1);
     $value  = $_POST["value"];

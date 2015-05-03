@@ -1,7 +1,13 @@
 <?php
-    session_start();
-    $BASE_URL="http://127.0.0.1:8000/elective/";
-    $teaid          = 800001;
+$BASE_URL	=	$_COOKIE['url'];
+$USER       =   $_GET['user'];
+$courceid   = $_GET['courceid'];
+if($USER != "")
+{
+    setcookie('user',"$USER",time()+3600,'/');
+}
+$teaid      =  $_COOKIE['user'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +20,7 @@
     <meta name="管理员" content="">
     <meta name="xiaobo" content="">
 
-    <title>学生选课系统-XXX</title>
+    <title>学生选课系统-<?php echo $teaid;?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -65,13 +71,13 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><?php echo $teaid;?>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="ChangePassword.php"><i class="fa fa-gear fa-fw"></i>修改密码</a>
+                        <li><a href="<?php echo $BASE_URL.'views/changepassword.php?rol=tea&id='.$teaid; ?>"><i class="fa fa-gear fa-fw"></i>修改密码</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="../index.php"><i class="fa fa-sign-out fa-fw"></i>退出</a>
+                        <li><a href="<?php echo $BASE_URL;?>"><i class="fa fa-sign-out fa-fw"></i>退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -104,16 +110,16 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>提交成绩<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <?php
-                                    require_once('../models/mysql.php');
-                                    $TEA        =   new MySQL(1);
-                                    $cour       =   $TEA->GetTeacherCourcename($teaid);
-                                    foreach($cour as $couid=>$name)
-                                    {
-                                        $URL    =   $BASE_URL."views/addscore.php?courceid=$couid";
-                                        $cname  =   $name['coursename'];
-                                        echo "<li><a href=\"$URL\">$cname</a></li>";
-                                    }
-                                ?>
+                                require_once('../models/mysql.php');
+                                $TEA        =   new MySQL(1);
+                                $cour       =   $TEA->GetTeacherCourcename($teaid);
+                                foreach($cour as $couid=>$name)
+                                {
+                                    $URL    =   $BASE_URL."views/addscore.php?courceid=$couid";
+                                    $cname  =   $name['coursename'];
+                                    echo "<li><a href=\"$URL\">$cname</a></li>";
+                                }
+                            ?>
                             </ul>
                         </li>
                 </div>
@@ -131,6 +137,50 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            已选修该课程的同学
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>院系</th>
+                                            <th>年级</th>
+                                            <th>班级</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            require_once('../models/mysql.php');
+                                            $ELE        =   new MySQL(1);
+                                            $courses    =   $ELE->GetCourceInfo($teaid,$courceid);
+                                            foreach($courses as $stuid=>$info)
+                                            {
+                                                $stuname            =   $info['stuname'];
+                                                $departname         =   $info['departname'];
+                                                $stuGrade           =   $info['stuGrade'];
+                                                $stuClass           =   $info['stuClass'];
+
+                                                echo "<tr><td>$stuid</td>";
+                                                echo "<td>$stuname</td>";
+                                                echo "<td>$departname</td>";
+                                                echo "<td>$stuGrade</td>";
+                                                echo "<td>$stuClass</td></tr>";
+
+
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

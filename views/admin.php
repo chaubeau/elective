@@ -1,5 +1,12 @@
 <?php
-    $BASE_URL="http://127.0.0.1:8000/elective/"
+    $BASE_URL	=	$_COOKIE['url'];
+    $NAME       =   $_GET['user'];
+    if($NAME != "")
+    {
+        setcookie('user',"$NAME",time()+3600,'/');
+    }
+    $USER       =   $_COOKIE['user'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +19,7 @@
     <meta name="管理员" content="">
     <meta name="xiaobo" content="">
 
-    <title>学生选课系统-管理员</title>
+    <title>学生选课系统-管理员(<?php echo $USER;?>)</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -63,13 +70,13 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><?php echo $USER;?> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="ChangePassword.php"><i class="fa fa-gear fa-fw"></i>修改密码</a>
+                        <li><a href="<?php echo $BASE_URL.'views/changepassword.php?rol=admin&id='.$USER; ?>"><i class="fa fa-gear fa-fw"></i>修改密码</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="../index.php"><i class="fa fa-sign-out fa-fw"></i>退出</a>
+                        <li><a href="<?php echo $BASE_URL;?>"><i class="fa fa-sign-out fa-fw"></i>退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -127,7 +134,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header">欢迎登陆学生选课系统,$USER</h2>
+                    <h2 class="page-header">欢迎登陆学生选课系统,<?php echo $USER;?></h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

@@ -3,14 +3,11 @@
 *
 *@desc:管理员添加课程
 */
-    session_start();
-    $BASE_URL="http://127.0.0.1:8000/elective/";
-
-
+    $BASE_URL	=	$_COOKIE['url'];
     /*课程编号*/
 	$COUID                 =   $_POST["courseid"];
     /*授课教师*/
-	$COUTEA            =   $_POST["courseteacher"];
+	$COUTEA                =   $_POST["courseteacher"];
     /*课程名称*/
     $COUNAME               =   $_POST["coursename"];
     /*上课时间*/

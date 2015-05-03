@@ -1,7 +1,6 @@
 <?php
-    session_start();
-    $BASE_URL="http://127.0.0.1:8000/elective/";
-    $teaid          = 800001;
+$BASE_URL	=	$_COOKIE['url'];
+$stuid      =  $_COOKIE['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@
     <meta name="管理员" content="">
     <meta name="xiaobo" content="">
 
-    <title>学生选课系统-XXX</title>
+    <title>学生选课系统-<?php echo $stuid;?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $BASE_URL.'views/css/bootstrap.min.css'; ?>" rel="stylesheet">
@@ -65,13 +64,13 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i></i><?php echo $stuid?>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="ChangePassword.php"><i class="fa fa-gear fa-fw"></i>修改密码</a>
+                        <li><a href="<?php echo $BASE_URL.'views/changepassword.php?rol=stu&stuid='.$stuid; ?>"><i class="fa fa-gear fa-fw"></i>修改密码</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="../index.php"><i class="fa fa-sign-out fa-fw"></i>退出</a>
+                        <li><a href="<?php echo $BASE_URL;?>"><i class="fa fa-sign-out fa-fw"></i>退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -84,37 +83,11 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="active">
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>选课信息<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <?php
-                                    require_once('../models/mysql.php');
-                                    $TEA        =   new MySQL(1);
-                                    $cour       =   $TEA->GetTeacherCourcename($teaid);
-                                    foreach($cour as $couid=>$name)
-                                    {
-                                        $URL    =   $BASE_URL."views/teacourse.php?courceid=$couid";
-                                        $cname  =   $name['coursename'];
-                                        echo "<li><a href=\"$URL\">$cname</a></li>";
-                                    }
-                                ?>
-                            </ul>
+                        <li>
+                            <a href="stu.php"><i class="fa fa-bar-chart-o fa-fw"></i>已选课程<span class="fa arrow"></span></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>提交成绩<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <?php
-                                    require_once('../models/mysql.php');
-                                    $TEA        =   new MySQL(1);
-                                    $cour       =   $TEA->GetTeacherCourcename($teaid);
-                                    foreach($cour as $couid=>$name)
-                                    {
-                                        $URL    =   $BASE_URL."views/addscore.php?courceid=$couid";
-                                        $cname  =   $name['coursename'];
-                                        echo "<li><a href=\"$URL\">$cname</a></li>";
-                                    }
-                                ?>
-                            </ul>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>选课管理<span class="fa arrow"></span></a>
                         </li>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -125,12 +98,49 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header"></h2>
+                    <h4 class="page-header">可选课程</h4>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>课程名称</th>
+                                    <th>教师名称</th>
+                                    <th>上课时间</th>
+                                    <th>上课地点</th>
+                                    <th>简介</th>
+                                    <th>选修</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    require_once('../models/mysql.php');
+                                    $COU        =   new MySQL(1);
+                                    $courses    =   $COU->GetUnlectiveStuid($stuid );
+                                    foreach($courses as $courseid=>$info)
+                                    {
+                                        $teaid          =   $info['teaid'];
+                                        $coursename     =   $info['coursename'];
+                                        $coursetime     =   $info['coursetime'];
+                                        $courseaddress  =   $info['courseaddress'];
+                                        $courseinfo     =   $info['courseinfo'];
+                                        $URL            =   "${BASE_URL}controllers/stuelect.php?courseid=$courseid&stuid=$stuid&tea=$teaid";
+                                        echo "<td>$coursename</td>";
+                                        echo "<td>$teaid</td>";
+                                        echo "<td>$coursetime</td>";
+                                        echo "<td>$courseaddress</td>";
+                                        echo "<td><a href=\"#\">$courseinfo</a></td>";
+                                        echo "<td><a href=\"$URL\">选修</a></td></tr>";
+
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

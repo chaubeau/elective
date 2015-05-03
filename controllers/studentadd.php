@@ -1,9 +1,8 @@
 <?php
-    session_start();
-    $BASE_URL="http://127.0.0.1:8000/elective/";
 /*
 *管理员添加学生
 */
+    $BASE_URL	        = $_COOKIE['url'];
 	$STUID              = $_POST["stuid"];
 	$STUNAME            = $_POST["stuname"];
     $DEPID              = $_POST["departid"];
