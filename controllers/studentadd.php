@@ -33,12 +33,16 @@
             exit;
 
         }else{
-            die("系统已存在该学号的学生，学号冲突");
+            header("refresh:2;url=$$URL");
+            echo "学号有冲突...<br>2秒后自动跳转至添加学生页面";
+            exit;
         }
 
 
     }else{
-        die("院系号输入有误");
+        header("refresh:2;url=$$URL");
+        echo "所输入的院系号不存在...<br>2秒后自动跳转至添加学生页面";
+        exit;
 
     }
 

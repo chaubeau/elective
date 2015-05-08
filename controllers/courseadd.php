@@ -26,7 +26,9 @@
         header("Location:$URL");
         exit;
     }else{
-        echo $SQL;
+        header("refresh:2;url=$$URL");
+        echo "添加课程失败...<br>2秒后自动跳转至添加课程页面";
+        exit;
     }
 
 

@@ -54,7 +54,7 @@
     {
         if($couvol == "courseid")
         {
-            echo "已注销学号";
+            echo "已删除该课程";
 
         }else{
             echo $value;

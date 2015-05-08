@@ -30,12 +30,16 @@
             exit;
 
         }else{
-            die("系统已存在该学号的学生，学号冲突");
+            header("refresh:2;url=$$URL");
+            echo "添加失败，已存在该ID的教师...<br>2秒后自动跳转至添加教师页面";
+            exit;
         }
 
 
     }else{
-        die("院系号输入有误");
+        header("refresh:2;url=$$URL");
+        echo "院系输入有误...<br>2秒后自动跳转至添加教师页面";
+        exit;
 
     }
 

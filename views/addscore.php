@@ -1,10 +1,13 @@
 <?php
     $BASE_URL	=	$_COOKIE['url'];
-    $USER       =   $_GET['user'];
-    $courceid   = $_GET['courceid'];
-    if($USER != "")
+    $USER       =   $_COOKIE['user'];
+    $courceid   =   $_GET['courceid'];
+    if($USER == "")
     {
-        setcookie('user',"$USER",time()+3600,'/');
+        $BASE_URL           =   'http://'.$_SERVER['HTTP_HOST']."/elective/";
+        header("refresh:2;url=$BASE_URL");
+        echo "您还没有登陆...<br>2秒后自动跳转至登陆页面";
+        exit;
     }
     $teaid      =  $_COOKIE['user'];
 ?>

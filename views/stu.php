@@ -4,6 +4,13 @@ $USER       =   $_GET['user'];
 if($USER != "")
 {
     setcookie('user',"$USER",time()+3600,'/');
+}else{
+
+    $BASE_URL           =   'http://'.$_SERVER['HTTP_HOST']."/elective/";
+    header("refresh:2;url=$BASE_URL");
+    echo "您还没有登陆...<br>2秒后自动跳转至登陆页面";
+    exit;
+
 }
 $stuid      =  $_COOKIE['user'];
 ?>
@@ -69,7 +76,7 @@ $stuid      =  $_COOKIE['user'];
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><?php echo $stuid?> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><?php echo $stuid;?> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $BASE_URL.'views/changepassword.php?rol=stu&stuid='.$stuid; ?>"<i class="fa fa-gear fa-fw"></i>修改密码</a>

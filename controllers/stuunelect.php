@@ -11,11 +11,13 @@
     $sql    =   "delete from elective.elect where `stuid`=$STU and `courseid`=$COU and  `teaid`=$TEA";
     if($ELECT->write_db($sql))
     {
-        $URL    = $BASE_URL.'views/stu.php';
+        $URL    = $BASE_URL."views/stu.php?user=$STU";
         header("Location:$URL");
         exit;
     }else{
-        die("退课失败");
+        header("refresh:2;url=$$URL");
+        echo "退课失败...<br>2秒后自动跳转至退课页面";
+        exit;
 
     }
 

@@ -4,6 +4,13 @@ $USER       =   $_GET['user'];
 if($USER != "")
 {
     setcookie('user',"$USER",time()+3600,'/');
+}else{
+
+    $BASE_URL           =   'http://'.$_SERVER['HTTP_HOST']."/elective/";
+    header("refresh:2;url=$BASE_URL");
+    echo "您还没有登陆...<br>2秒后自动跳转至登陆页面";
+    exit;
+
 }
 $teaid      =  $_COOKIE['user'];
 ?>
@@ -97,7 +104,7 @@ $teaid      =  $_COOKIE['user'];
                                     $cour       =   $TEA->GetTeacherCourcename($teaid);
                                     foreach($cour as $couid=>$name)
                                     {
-                                        $URL    =   $BASE_URL."views/teacourse.php?courceid=$couid";
+                                        $URL    =   $BASE_URL."views/teacourse.php?courceid=$couid&user=$USER";
                                         $cname  =   $name['coursename'];
                                         echo "<li><a href=\"$URL\">$cname</a></li>";
                                     }
@@ -113,7 +120,7 @@ $teaid      =  $_COOKIE['user'];
                                 $cour       =   $TEA->GetTeacherCourcename($teaid);
                                 foreach($cour as $couid=>$name)
                                 {
-                                    $URL    =   $BASE_URL."views/addscore.php?courceid=$couid";
+                                    $URL    =   $BASE_URL."views/addscore.php?courceid=$couid&user=$USER";
                                     $cname  =   $name['coursename'];
                                     echo "<li><a href=\"$URL\">$cname</a></li>";
                                 }

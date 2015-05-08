@@ -21,7 +21,12 @@
             header("Location:$URL");
             exit;
 
+        }else{
+            header("refresh:2;url=$$URL");
+            echo "录入成绩失败...<br>2秒后自动跳转至录入成绩页面";
+            exit;
         }
+
     }
 
 ?>

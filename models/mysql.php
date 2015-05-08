@@ -216,10 +216,15 @@ class MySQL
 		mysql_set_charset("utf8", $this->handle);
 		$query	= mysql_query($sql,$this->handle);
 		while($result = mysql_fetch_array($query)){
-			$info[$result['stuid']]['stuname']		=	$result['stuname'];
-			$info[$result['stuid']]['departname']	=	$result['departname'];
-			$info[$result['stuid']]['stuGrade']		=	$result['stuGrade'];
-			$info[$result['stuid']]['stuClass']		=	$result['stuClass'];
+			$stuid		=	$result['stuid'];
+			$socresql	= 	"select score from elective.elect where stuid=$stuid and courseid=$courceid";
+			$query		= 	mysql_query($socresql,$this->handle);
+			$sresult	=	mysql_fetch_array($query);
+			$info[$stuid]['stuname']		=	$result['stuname'];
+			$info[$stuid]['departname']		=	$result['departname'];
+			$info[$stuid]['stuGrade']		=	$result['stuGrade'];
+			$info[$stuid]['stuClass']		=	$result['stuClass'];
+			$info[$stuid]['score']			=	$sresult['score'];
 		}
 		return $info;
 	}

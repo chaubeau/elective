@@ -1,4 +1,6 @@
 <?php
+
+    
     $BASE_URL           =   'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     setcookie('url',"$BASE_URL",time()+3600,'/');
 ?>

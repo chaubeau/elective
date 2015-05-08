@@ -6,7 +6,13 @@
         setcookie('user',"$NAME",time()+3600,'/');
     }
     $USER       =   $_COOKIE['user'];
-
+    if($USER  == "")
+    {
+        $BASE_URL           =   'http://'.$_SERVER['HTTP_HOST']."/elective/";
+        header("refresh:2;url=$BASE_URL");
+        echo "您还没有登陆...<br>2秒后自动跳转至登陆页面";
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

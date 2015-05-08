@@ -1,10 +1,15 @@
 <?php
 $BASE_URL	=	$_COOKIE['url'];
-$USER       =   $_GET['user'];
-$courceid   = $_GET['courceid'];
-if($USER != "")
+$USER       =   $_COOKIE['user'];
+$courceid   =   $_GET['courceid'];
+if($USER == "")
 {
-    setcookie('user',"$USER",time()+3600,'/');
+
+    $BASE_URL   =   'http://'.$_SERVER['HTTP_HOST']."/elective/";
+    header("refresh:2;url=$BASE_URL");
+    echo "您还没有登陆...<br>2秒后自动跳转至登陆页面";
+    exit;
+
 }
 $teaid      =  $_COOKIE['user'];
 
@@ -152,6 +157,7 @@ $teaid      =  $_COOKIE['user'];
                                             <th>院系</th>
                                             <th>年级</th>
                                             <th>班级</th>
+                                            <th>成绩</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -165,12 +171,14 @@ $teaid      =  $_COOKIE['user'];
                                                 $departname         =   $info['departname'];
                                                 $stuGrade           =   $info['stuGrade'];
                                                 $stuClass           =   $info['stuClass'];
+                                                $score              =   $info['score'];
 
                                                 echo "<tr><td>$stuid</td>";
                                                 echo "<td>$stuname</td>";
                                                 echo "<td>$departname</td>";
                                                 echo "<td>$stuGrade</td>";
-                                                echo "<td>$stuClass</td></tr>";
+                                                echo "<td>$stuClass</td>";
+                                                echo "<td>$score</td></tr>";
 
 
                                             }
