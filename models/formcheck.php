@@ -1,9 +1,8 @@
 <?php
-
 /**
- * 表单验证类
- * Author : chaubeau@163.com
- * Version : V1
+ * @desc:表单验证类
+ * @author : chaubeau@163.com
+ * @version : V1
  */
  
 class FormValidator

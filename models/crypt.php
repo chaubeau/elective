@@ -1,4 +1,9 @@
 <?php
+/*
+ * @desc:3DES加密/解密类
+ * @version:v1
+ * @author:chaubeau
+ */
 class CryptDes {
      var $key;
      var $iv;
