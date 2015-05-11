@@ -2,12 +2,12 @@
 /*
 *修改密码
 */
-	$BASE_URL	=	$_COOKIE['url'];
+    require_once('../models/mysql.php');
+    $BASE_URL   =   $_COOKIE['url'];
     $USER       =   $_COOKIE['user'];
     $ROL        =   $_COOKIE['rol'];
-	require_once('../models/mysql.php');
-    $login	    =    new MySQL(1);
-    $RPWD	    =   $login->VerificationRole($ROL,$USER);
+    $login      =    new MySQL(1);
+    $RPWD       =   $login->VerificationRole($ROL,$USER);
     $oldpwd     =   $_POST['oldpassword'];
     $newpwd     =   $_POST['newpassword'];
     $repwd      =   $_POST['rnewpassword'];
@@ -27,19 +27,19 @@
         exit;
     }else{
         switch($ROL)
-		{
-			case "admin":
-				$SQL				=	"update elective.admin set adminpwd=\"$mpwd\" where adminname=\"$USER\"";
-				break;
-			case "student":
-				$SQL				=	"update elective.student set stupwd=\"$mpwd\" where stuid=$USER";
-				break;
-			case "teacher":
-				$SQL				=	"update elective.teacher set teapwd=\"$mpwd\" where stuid=$USER";
-				break;
-			default:
-				break;
-		}
+        {
+            case "admin":
+                $SQL    = "update elective.admin set adminpwd=\"$mpwd\" where adminname=\"$USER\"";
+                break;
+            case "student":
+                $SQL    = "update elective.student set stupwd=\"$mpwd\" where stuid=$USER";
+                break;
+            case "teacher":
+                $SQL    = "update elective.teacher set teapwd=\"$mpwd\" where stuid=$USER";
+                break;
+            default:
+                break;
+        }
         //echo $SQL;
         if($login->write_db($SQL))
         {

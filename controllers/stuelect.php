@@ -2,7 +2,7 @@
 /*
 *学生选课
 */
-    $BASE_URL	=	$_COOKIE['url'];
+    $BASE_URL   =   $_COOKIE['url'];
     $stuid      =   $_COOKIE['user'];
     $STU        =   $_GET['stuid'];
     $COU        =   $_GET['courseid'];
