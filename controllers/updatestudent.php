@@ -3,7 +3,7 @@
 *管理员修改学生相关
 */
     require_once('../models/mysql.php');
-    $STU	= new MySQL(1);
+    $STU    = new MySQL(1);
     $value  = $_POST["value"];
     $text   = explode("#",$_POST["id"]);
     $stuid  = $text[0];

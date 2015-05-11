@@ -2,14 +2,14 @@
     /*
     * 管理员添加教师
     */
-    $BASE_URL	        = $_COOKIE['url'];
-	$TEAID              = $_POST["teaid"];
-	$TEANAME            = $_POST["teaname"];
-    $DEPID              = $_POST["departid"];
 
-	require_once('../models/mysql.php');
+    require_once('../models/mysql.php');
+    $BASE_URL           = $_COOKIE['url'];
+    $TEAID              = $_POST["teaid"];
+    $TEANAME            = $_POST["teaname"];
+    $DEPID              = $_POST["departid"];
     $TEAPASSWORD        = md5('888888');
-	$TEA	= new MySQL(1);
+    $TEA                = new MySQL(1);
     /*
     * 验证输入的院系ID是否正确
     */
@@ -30,14 +30,14 @@
             exit;
 
         }else{
-            header("refresh:2;url=$$URL");
+            header("refresh:2;url=$URL");
             echo "添加失败，已存在该ID的教师...<br>2秒后自动跳转至添加教师页面";
             exit;
         }
 
 
     }else{
-        header("refresh:2;url=$$URL");
+        header("refresh:2;url=$URL");
         echo "院系输入有误...<br>2秒后自动跳转至添加教师页面";
         exit;
 

@@ -3,7 +3,7 @@
 *管理员修改课程相关
 */
     require_once('../models/mysql.php');
-    $COU	        = new MySQL(1);
+    $COU            = new MySQL(1);
     $value          = $_POST["value"];
     $text           = explode("#",$_POST["id"]);
     $courseid       = $text[0];
